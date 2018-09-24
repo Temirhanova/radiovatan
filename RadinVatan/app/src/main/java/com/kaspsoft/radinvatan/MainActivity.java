@@ -67,19 +67,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onResume();
         initViews();
         if (mediaPlayer.isPlaying()) {
-
             buttonPlayStope.setBackground(ContextCompat.getDrawable(this, R.drawable.pause));
-            buttonPlayStope.setText(getText(R.string.pause_srt));
         } else {
             buttonPlayStope.setBackground(ContextCompat.getDrawable(this, R.drawable.play));
-            buttonPlayStope.setText(getText(R.string.play_str));
         }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        buttonPlayStope.setText(getText(R.string.play_str));
     }
 
     @Override
@@ -110,17 +106,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 }
     public void playAndStop(View v) {
-        if (buttonPlayStope.getText().equals(getString(R.string.play_str))) {
-            buttonPlayStope.setText(getText(R.string.pause_srt));
-            buttonPlayStope.setBackground(ContextCompat.getDrawable(this, R.drawable.pause));
+        if(!mediaPlayer.isPlaying()){
             try{
                 mediaPlayer.start();
+                buttonPlayStope.setBackground(ContextCompat.getDrawable(this, R.drawable.pause));
             } catch (IllegalStateException e) {
                 mediaPlayer.pause();
+                buttonPlayStope.setBackground(ContextCompat.getDrawable(this, R.drawable.play));
             }
         } else {
             mediaPlayer.pause();
-            buttonPlayStope.setText(getText(R.string.play_str));
             buttonPlayStope.setBackground(ContextCompat.getDrawable(this, R.drawable.play));
         }
     }
